@@ -29,7 +29,7 @@ export function LoginForm({
 
     try {
       await loginUser(formData); // ✅ uses your helper
-      router.push("/dashboard"); // redirect after login
+      router.push("/"); // redirect after login
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");
     } finally {

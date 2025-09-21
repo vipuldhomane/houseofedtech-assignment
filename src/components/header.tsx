@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Search, User, Plus } from "lucide-react";
+import { Search, User, Plus, LogIn } from "lucide-react";
 import Link from "next/link";
 
 export function Header() {
@@ -51,9 +51,18 @@ export function Header() {
                 Add Recipe
               </Button>
             </Link>
-            <Button variant="outline" size="sm">
-              <User className="h-4 w-4" />
-            </Button>
+            <Link href="/login">
+              <Button variant="outline" size="sm">
+                {/* <User className="h-4 w-4" /> */}
+                <LogIn className="h-4 w-4" />
+              </Button>
+            </Link>
+            <Link href="/signup">
+              <Button variant="outline" size="sm">
+                {/* <User className="h-4 w-4" /> */}
+                <User className="h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
