@@ -8,6 +8,8 @@ export interface IRecipe extends Document {
   servings?: number;
   imageURL?: string;
   user: mongoose.Types.ObjectId;
+  createdAt: string;   
+  updatedAt: string;   
 }
 
 const RecipeSchema: Schema = new Schema(

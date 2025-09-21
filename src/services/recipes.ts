@@ -7,7 +7,8 @@ export interface Recipe {
   _id?: string;
   title: string;
   ingredients: string[];
-  instructions: string;s
+  instructions: string;
+  servings?: number;
   cookingTime: number;
   imageURL?: string;
   user?: string; // populated user ID or email
