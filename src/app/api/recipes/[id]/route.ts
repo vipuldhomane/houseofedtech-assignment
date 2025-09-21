@@ -1,18 +1,38 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/db";
 import { Recipe } from "@/models/Recipe";
 import { RecipeSchema } from "@/lib/validations/recipe";
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+// export async function GET(_req: Request, { params }: { params: { id: string } }) {
+//   try {
+//     await connectToDatabase();
+//     const recipe = await Recipe.findById(params.id);
+//     if (!recipe) return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
+//     return NextResponse.json(recipe, { status: 200 });
+//   } catch (err: any) {
+//     return NextResponse.json({ error: err.message }, { status: 500 });
+//   }
+// }
+
+export async function GET(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
   try {
     await connectToDatabase();
-    const recipe = await Recipe.findById(params.id);
-    if (!recipe) return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
+    const { id } = context.params;
+
+    const recipe = await Recipe.findById(id);
+    if (!recipe) {
+      return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
+    }
+
     return NextResponse.json(recipe, { status: 200 });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
+
 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
   try {
