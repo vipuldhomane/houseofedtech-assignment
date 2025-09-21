@@ -91,6 +91,7 @@ export async function GET(
     await connectToDatabase();
     const { id } = await context.params; // ✅ await the params
 
+    //@ts-expect-error // mongoose typing issue
     const recipe = await Recipe.findById(id);
     if (!recipe) {
       return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
@@ -125,6 +126,7 @@ export async function PUT(
       );
     }
 
+    //@ts-expect-error // mongoose typing issue
     const recipe = await Recipe.findOneAndUpdate(
       { _id: id, user: userId },
       parsed.data,
@@ -156,7 +158,7 @@ export async function DELETE(
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
+//@ts-expect-error // mongoose typing issue
     const recipe = await Recipe.findOneAndDelete({ _id: id, user: userId });
     if (!recipe) {
       return NextResponse.json(

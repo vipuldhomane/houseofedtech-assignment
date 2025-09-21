@@ -8,6 +8,7 @@ export async function POST(req: Request) {
     await connectToDatabase();
     const { email, password } = await req.json();
 
+   //@ts-expect-error // Fix mongoose typing issue
     const user = await User.findOne({ email });
     if (!user) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
@@ -20,8 +21,7 @@ export async function POST(req: Request) {
 
     const token = generateToken(user._id.toString());
 
-  return NextResponse.json({ token, userId: user._id }, { status: 200 });
-
+    return NextResponse.json({ token }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

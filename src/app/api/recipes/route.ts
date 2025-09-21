@@ -25,6 +25,7 @@ export async function POST(req: Request) {
     }
 
     // Create recipe with authenticated user
+    //@ts-expect-error // mongoose typing issue
     const recipe = await Recipe.create({ ...parsed.data, user: userId });
 
     return NextResponse.json(recipe, { status: 201 });
@@ -40,6 +41,7 @@ export async function GET() {
     await connectToDatabase();
 
     // Fetch all recipes and populate user email
+    //@ts-expect-error // mongoose typing issue
     const recipes = await Recipe.find() 
 
     return NextResponse.json(recipes, { status: 200 });

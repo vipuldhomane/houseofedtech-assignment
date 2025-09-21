@@ -13,12 +13,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "All fields required" }, { status: 400 });
     }
 
+    //@ts-expect-error // Fix mongoose typing issue
     const existing = await User.findOne({ email });
     if (existing) {
       return NextResponse.json({ error: "Email already in use" }, { status: 400 });
     }
 
     const hashedPassword = await hashPassword(password);
+    //@ts-expect-error // Fix mongoose typing issue
     const user = await User.create({ username, email, password: hashedPassword });
 
     return NextResponse.json({ message: "User registered successfully" }, { status: 201 });

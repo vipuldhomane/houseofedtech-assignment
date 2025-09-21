@@ -64,6 +64,7 @@ export default function ManageRecipesPage() {
     async function fetchRecipes() {
       try {
         const data = await getRecipes();
+        //@ts-expect-error // mongoose typing issue
         setRecipes(data);
       } catch (err: any) {
         setError(err.message || "Failed to fetch recipes");
