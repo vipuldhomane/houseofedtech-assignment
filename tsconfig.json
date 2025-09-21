@@ -4,10 +4,10 @@
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "skipLibCheck": true,
-    "noImplicitAny": false,  
-
-    "noEmit": true,
+    "noEmit": true,          // don’t output TS files
+    "noImplicitAny": false,  // allow any types
+    "skipLibCheck": true,    // skip type checking for node_modules
+  
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
