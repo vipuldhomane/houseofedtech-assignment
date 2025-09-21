@@ -15,6 +15,9 @@ export default function HomePage() {
           </p>
         </div>
         <RecipeGrid />
+        <p className=" text-lg">
+          Assignment done by Vipul Dhomane for House of Edtech
+        </p>
       </main>
     </div>
   );

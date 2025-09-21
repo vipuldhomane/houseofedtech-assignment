@@ -1,39 +1,52 @@
-"use client"
+"use client";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Clock, Users, Heart, Edit, Trash2 } from "lucide-react"
-import { Separator } from "@/components/ui/separator"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Clock, Users, Heart, Edit, Trash2 } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 interface Recipe {
-  _id: string
-  title: string
-  ingredients: string[]
-  instructions: string
-  cookingTime: number
-  servings: number
-  imageURL: string
-  user: string
-  createdAt: string
+  _id: string;
+  title: string;
+  ingredients: string[];
+  instructions: string;
+  cookingTime: number;
+  servings: number;
+  imageURL: string;
+  user: string;
+  createdAt: string;
 }
 
 interface RecipeDetailPopupProps {
-  recipe: Recipe | null
-  isOpen: boolean
-  onClose: () => void
-  onEdit?: (recipe: Recipe) => void
-  onDelete?: (recipeId: string) => void
+  recipe: Recipe | null;
+  isOpen: boolean;
+  onClose: () => void;
+  onEdit?: (recipe: Recipe) => void;
+  onDelete?: (recipeId: string) => void;
 }
 
-export function RecipeDetailPopup({ recipe, isOpen, onClose, onEdit, onDelete }: RecipeDetailPopupProps) {
-  if (!recipe) return null
+export function RecipeDetailPopup({
+  recipe,
+  isOpen,
+  onClose,
+  onEdit,
+  onDelete,
+}: RecipeDetailPopupProps) {
+  if (!recipe) return null;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-balance">{recipe.title}</DialogTitle>
+          <DialogTitle className="text-2xl font-bold text-balance">
+            {recipe.title}
+          </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6">
@@ -44,8 +57,10 @@ export function RecipeDetailPopup({ recipe, isOpen, onClose, onEdit, onDelete }:
               alt={recipe.title}
               className="w-full h-64 object-cover"
               onError={(e) => {
-                const target = e.target as HTMLImageElement
-                target.src = `/placeholder.svg?height=400&width=600&query=${encodeURIComponent(recipe.title + " food dish")}`
+                const target = e.target as HTMLImageElement;
+                target.src = `/placeholder.svg?height=400&width=600&query=${encodeURIComponent(
+                  recipe.title + " food dish"
+                )}`;
               }}
             />
           </div>
@@ -61,22 +76,32 @@ export function RecipeDetailPopup({ recipe, isOpen, onClose, onEdit, onDelete }:
                 <Users className="h-4 w-4" />
                 <span>{recipe.servings} servings</span>
               </div>
-              <Badge variant="secondary">{recipe.ingredients.length} ingredients</Badge>
+              <Badge variant="secondary">
+                {recipe.ingredients.length} ingredients
+              </Badge>
             </div>
 
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm">
+              {/* <Button variant="outline" size="sm">
                 <Heart className="h-4 w-4 mr-1" />
                 Save
-              </Button>
+              </Button> */}
               {onEdit && (
-                <Button variant="outline" size="sm" onClick={() => onEdit(recipe)}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onEdit(recipe)}
+                >
                   <Edit className="h-4 w-4 mr-1" />
                   Edit
                 </Button>
               )}
               {onDelete && (
-                <Button variant="outline" size="sm" onClick={() => onDelete(recipe._id)}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onDelete(recipe._id)}
+                >
                   <Trash2 className="h-4 w-4 mr-1" />
                   Delete
                 </Button>
@@ -105,7 +130,9 @@ export function RecipeDetailPopup({ recipe, isOpen, onClose, onEdit, onDelete }:
           <div>
             <h3 className="text-lg font-semibold mb-3">Instructions</h3>
             <div className="prose prose-sm max-w-none">
-              <p className="text-muted-foreground leading-relaxed">{recipe.instructions}</p>
+              <p className="text-muted-foreground leading-relaxed">
+                {recipe.instructions}
+              </p>
             </div>
           </div>
 
@@ -118,5 +145,5 @@ export function RecipeDetailPopup({ recipe, isOpen, onClose, onEdit, onDelete }:
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

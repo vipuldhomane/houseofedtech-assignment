@@ -1,30 +1,30 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Clock, Users, Heart } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useState } from "react"
-import { RecipeDetailPopup } from "./recipe-detail-popup"
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Clock, Users, Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { RecipeDetailPopup } from "./recipe-detail-popup";
 
 interface Recipe {
-  _id: string
-  title: string
-  ingredients: string[]
-  instructions: string
-  cookingTime: number
-  servings: number
-  imageURL: string
-  user: string
-  createdAt: string
+  _id: string;
+  title: string;
+  ingredients: string[];
+  instructions: string;
+  cookingTime: number;
+  servings: number;
+  imageURL: string;
+  user: string;
+  createdAt: string;
 }
 
 interface RecipeCardProps {
-  recipe: Recipe
+  recipe: Recipe;
 }
 
 export function RecipeCard({ recipe }: RecipeCardProps) {
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
     <>
@@ -35,15 +35,17 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
             alt={recipe.title}
             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
             onError={(e) => {
-              const target = e.target as HTMLImageElement
-              target.src = `/placeholder.svg?height=300&width=400&query=${encodeURIComponent(recipe.title + " food dish")}`
+              const target = e.target as HTMLImageElement;
+              target.src = `/placeholder.svg?height=300&width=400&query=${encodeURIComponent(
+                recipe.title + " food dish"
+              )}`;
             }}
           />
-          <div className="absolute top-3 right-3">
+          {/* <div className="absolute top-3 right-3">
             <Button variant="secondary" size="sm" className="h-8 w-8 p-0 bg-white/90 hover:bg-white shadow-sm">
               <Heart className="h-4 w-4" />
             </Button>
-          </div>
+          </div> */}
           <div className="absolute bottom-3 left-3">
             <Badge variant="secondary" className="bg-white/90 text-foreground">
               {recipe.ingredients.length} ingredients
@@ -56,7 +58,9 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
             {recipe.title}
           </h3>
 
-          <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{recipe.instructions}</p>
+          <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+            {recipe.instructions}
+          </p>
 
           <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
             <div className="flex items-center gap-1">
@@ -69,13 +73,21 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
             </div>
           </div>
 
-          <Button className="w-full" size="sm" onClick={() => setIsPopupOpen(true)}>
+          <Button
+            className="w-full"
+            size="sm"
+            onClick={() => setIsPopupOpen(true)}
+          >
             View Recipe
           </Button>
         </CardContent>
       </Card>
 
-      <RecipeDetailPopup recipe={recipe} isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
+      <RecipeDetailPopup
+        recipe={recipe}
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+      />
     </>
-  )
+  );
 }
