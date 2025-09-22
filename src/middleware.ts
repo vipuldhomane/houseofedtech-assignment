@@ -11,12 +11,17 @@ export const runtime = "nodejs";
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+   const method = req.method;
 
   // 1️⃣ Skip public auth routes
   if (pathname.startsWith("/api/auth")) {
     return NextResponse.next();
   }
 
+   // 2️⃣ Public endpoint: GET /api/recipes
+  if (pathname === "/api/recipes" && method === "GET") {
+    return NextResponse.next();
+  }
   // 2️⃣ Protect all other /api routes
   if (pathname.startsWith("/api")) {
     const authHeader = req.headers.get("authorization");
